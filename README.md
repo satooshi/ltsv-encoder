@@ -48,51 +48,63 @@ $ git clone git@github.com:satooshi/LTSV-Serializer.git
 
 # Usage
 
+## unserialize($str)
+
 ```php
 <?php
-// parse line
-$line = "label1:value1\tlabel2:value2";
-$parser = new LTSV();
-$data1 = $parse->paraseLine();
 
-/*
-$data1 ->
+use Contrib\Component\Data\Serializer\LtsvSerializer;
+
+// unserialize
+$str = "label1:value1\tlabel2:value2";
+$serializer = new LtsvSerializer();
+$data = $serializer->unserialize($str);
+
+```
+
+result in:
+
+```php
+// $data
 [
   'label1' => "value1",
-  'label2' => "value2"
+  'label2' => "value2",
 ]
- */
+```
 
-// parse LTSV file
-$path = '/path/to/file.ltsv';
-$data2 = $parser->parseFile();
+## serialize($data)
 
-/*
-$data2 ->
-[
-  [
-    'label1' => "value1",
-    'label2' => "value2"
-  ],
-  [
-    'label1' => "value1",
-    'label2' => "value2"
-  ]
-]
- */
+```php
+<?php
 
-// dump line
-$line1 = $parser->asLtsvLine($data1);
+use Contrib\Component\Data\Serializer\LtsvSerializer;
 
-/*
-$line1 -> 
+// serialize
+$serializer = new LtsvSerializer();
+$str = $serializer->serialize($data);
+```
+
+result in:
+
+```php
+// $str
 "label1:value1\tlabel2:value2"
- */
+```
 
-// dump lines
-$line2 = $parser->asLtsvLines($data2);
-/*
-$line2 ->
-"label1:value1\tlabel2:value2\nlabel1:value1\tlabel2:value2"
- */
+## options
+You can pass options to constructor.
+
+```php
+<?php
+
+use Contrib\Component\Data\Serializer\LtsvSerializer;
+
+$serializer = new LtsvSerializer(
+    // default options
+    [
+        'to_encoding' =>'UTF-8',
+        'from_encodeing' => 'auto',
+        'strict' => false,
+    ]
+);
 ```
