@@ -1,0 +1,22 @@
+{
+    "name": "satooshi/ltsv-serializer",
+    "description": "LTSV serializer",
+    "keywords": ["file"],
+    "homepage": "https://github.com/satooshi/LTSV-Serializer",
+    "type": "library",
+    "license": "MIT",
+    "minimum-stability": "dev",
+    "authors": [
+        {
+            "name": "Kitamura Satoshi",
+            "email": "with.no.parachute@gmail.com",
+            "homepage": "https://www.facebook.com/satooshi.jp"
+        }
+    ],
+    "require": {
+        "php": ">=5.3.0"
+    },
+    "autoload": {
+        "psr-0": { "Contrib\\Component": "src/" }
+    }
+}
