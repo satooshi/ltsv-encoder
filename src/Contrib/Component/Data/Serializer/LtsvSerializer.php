@@ -41,6 +41,7 @@ class LtsvSerializer
      *
      * * to_encoding: UTF-8
      * * from_encoding: auto
+     * * strict: false
      *
      * @var array
      */
