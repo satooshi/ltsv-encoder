@@ -1,7 +1,18 @@
 <?php
 
+/**
+ * Simple LTSV parser.
+ *
+ * @author KITAMURA Satoshi
+ */
 class LTSV
 {
+    /**
+     * Parse LTSV line.
+     *
+     * @param string $line
+     * @return array
+     */
     public function parseLine($line)
     {
         $fields = explode("\t", trim($line));
@@ -10,10 +21,10 @@ class LTSV
 
         foreach ($fields as $field) {
             if (false !== stripos($field, ':')) {
-                $keyValue = explode(":", $field);
+                $labelValue = explode(':', $field);
 
-                if (count($keyValue) === 2) {
-                    $array[$keyValue[0]] = $keyValue[1];
+                if (count($labelValue) === 2) {
+                    $array[$labelValue[0]] = $labelValue[1];
                 }
             }
         }
@@ -21,6 +32,13 @@ class LTSV
         return $array;
     }
 
+    /**
+     * Parse LTSV file.
+     *
+     * @param string $path LTSV file path.
+     * @return array
+     * @throws \RuntimeException
+     */
     public function parseFile($path)
     {
         if (is_file($path) && is_readable($path)) {
@@ -46,18 +64,30 @@ class LTSV
         throw new \RuntimeException("Failed to read file for read : $path.");
     }
 
-    public function asLtsvLine($lineData)
+    /**
+     * Dump LTSV line.
+     *
+     * @param array $data
+     * @return string
+     */
+    public function asLtsvLine(array $data)
     {
         $content = array();
 
-        foreach ($lineData as $key => $value) {
+        foreach ($data as $key => $value) {
             $content[] = sprintf('%s:%s', $key, $value);
         }
 
         return implode("\t", $content);
     }
 
-    public function asLtsvLines($data)
+    /**
+     * Dump LTSV lines.
+     *
+     * @param array $data
+     * @return string
+     */
+    public function asLtsvLines(array $data)
     {
         $content = array();
 
