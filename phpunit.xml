@@ -12,7 +12,7 @@
          bootstrap="vendor/autoload.php"
 >
     <testsuites>
-        <testsuite name="LTSV encoder Component Test Suite">
+        <testsuite name="LTSV encoder component test suite">
             <directory>./tests/</directory>
         </testsuite>
     </testsuites>
