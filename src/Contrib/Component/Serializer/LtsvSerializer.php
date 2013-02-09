@@ -1,5 +1,5 @@
 <?php
-namespace Contrib\Component\Data\Serializer;
+namespace Contrib\Component\Serializer;
 
 /**
  * LTSV serializer.
