@@ -97,7 +97,7 @@ You can pass options to constructor.
 ```php
 <?php
 
-use Contrib\Component\Data\Serializer\LtsvSerializer;
+use Contrib\Component\Serializer\LtsvSerializer;
 
 $serializer = new LtsvSerializer(
     // default options
