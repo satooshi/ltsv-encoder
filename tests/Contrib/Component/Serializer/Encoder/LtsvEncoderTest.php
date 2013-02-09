@@ -18,7 +18,7 @@ class LtsvEncoderTest extends \PHPUnit_Framework_TestCase
         $this->object = new LtsvEncoder();
     }
 
-    // encode test
+    // encode()
 
     /**
      * @test
@@ -33,6 +33,8 @@ class LtsvEncoderTest extends \PHPUnit_Framework_TestCase
 
         $this->assertEquals($expected, $this->object->encode($data, self::FORMAT));
     }
+
+    // supportsEncoding()
 
     /**
      * @test
@@ -50,7 +52,7 @@ class LtsvEncoderTest extends \PHPUnit_Framework_TestCase
         $this->assertFalse($this->object->supportsEncoding('json'));
     }
 
-    // decode test
+    // decode()
 
     /**
      * @test
@@ -60,11 +62,13 @@ class LtsvEncoderTest extends \PHPUnit_Framework_TestCase
         $data = "label1:value1";
 
         $expected = array(
-                'label1' => 'value1',
+            'label1' => 'value1',
         );
 
         $this->assertEquals($expected, $this->object->decode($data, self::FORMAT));
     }
+
+    // supportsDecoding()
 
     /**
      * @test

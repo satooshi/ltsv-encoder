@@ -1,7 +1,7 @@
 LTSV
 ====
 
-LTSV serializer implementation in PHP.
+LTSV encoder implementation in PHP based on Symfony Serializer component.
 
 [Labeled Tab-separated Values](http://ltsv.org/)
 
@@ -56,17 +56,17 @@ $ git clone git@github.com:satooshi/LTSV-Serializer.git
 
 # Usage
 
-## deserialize($str)
+## decode($data, $format)
 
 ```php
 <?php
 
-use Contrib\Component\Serializer\LtsvSerializer;
+use Contrib\Component\Serializer\Factory;
 
 // deserialize
 $str = "label1:value1\tlabel2:value2";
-$serializer = new LtsvSerializer();
-$data = $serializer->deserialize($str);
+$serializer = Factory::create();
+$data = $serializer->decode($str, 'ltsv');
 
 ```
 
@@ -80,16 +80,16 @@ result in:
 ]
 ```
 
-## serialize($data)
+## encode($data, $format)
 
 ```php
 <?php
 
-use Contrib\Component\Serializer\LtsvSerializer;
+use Contrib\Component\Serializer\Factory;
 
-// serialize
-$serializer = new LtsvSerializer();
-$str = $serializer->serialize($data);
+// encode
+$serializer = Factory::create();
+$str = $serializer->encode($data, 'ltsv');
 ```
 
 result in:
@@ -99,15 +99,61 @@ result in:
 "label1:value1\tlabel2:value2"
 ```
 
+## serialize($data, $format)
+
+```php
+<?php
+
+use Contrib\Component\Serializer\Factory;
+
+// encode
+$data = new SerializableEntity(array('id' => 1, 'name' => 'hoge'));
+$serializer = Factory::create();
+$str = $serializer->serialize($data, 'ltsv');
+```
+
+result in:
+
+```php
+// $str
+"id:1\tname:hoge"
+```
+
+## deserialize($data, $type, $format)
+
+```php
+<?php
+
+use Contrib\Component\Serializer\Factory;
+
+// deserialize
+$str = "id:1\tname:hoge";
+$serializer = Factory::create();
+$data = $serializer->deserialize($str, 'SerializableEntity', 'ltsv');
+
+```
+
+result in:
+
+```php
+// $data
+class SerializableEntity {
+  protected $id =>
+  int(1)
+  protected $name =>
+  string(4) "hoge"
+}
+```
+
 ## options
 You can pass options to constructor.
 
 ```php
 <?php
 
-use Contrib\Component\Serializer\LtsvSerializer;
+use Contrib\Component\Serializer\Factory;
 
-$serializer = new LtsvSerializer(
+$serializer = Factory::create(
     // default options
     [
         'to_encoding' =>'UTF-8',
