@@ -79,7 +79,7 @@ class LtsvDecodeTest extends \PHPUnit_Framework_TestCase
     /**
      * @test
      */
-    public function shouldNotSupportOtherFormat()
+    public function shouldNotSupportOtherFormatDecoding()
     {
         $this->assertFalse($this->object->supportsDecoding('json'));
     }
