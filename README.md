@@ -1,11 +1,11 @@
 LTSV encoder
 ====
 
+[![Build Status](https://travis-ci.org/satooshi/ltsv-encoder.png?branch=master)](https://travis-ci.org/satooshi/ltsv-encoder)
+
 LTSV encoder implementation in PHP based on [Symfony Serializer component](http://symfony.com/doc/current/components/serializer.html).
 
 [Labeled Tab-separated Values](http://ltsv.org/)
-
-[![Build Status](https://travis-ci.org/satooshi/ltsv-encoder.png?branch=master)](https://travis-ci.org/satooshi/ltsv-encoder)
 
 # Installation
 
