@@ -55,10 +55,10 @@ $ git clone git@github.com:satooshi/LTSV-Serializer.git
 
 use Contrib\Component\Serializer\LtsvSerializer;
 
-// unserialize
+// deserialize
 $str = "label1:value1\tlabel2:value2";
 $serializer = new LtsvSerializer();
-$data = $serializer->unserialize($str);
+$data = $serializer->deserialize($str);
 
 ```
 
