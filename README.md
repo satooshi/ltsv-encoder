@@ -53,7 +53,7 @@ $ git clone git@github.com:satooshi/LTSV-Serializer.git
 ```php
 <?php
 
-use Contrib\Component\Data\Serializer\LtsvSerializer;
+use Contrib\Component\Serializer\LtsvSerializer;
 
 // unserialize
 $str = "label1:value1\tlabel2:value2";
@@ -77,7 +77,7 @@ result in:
 ```php
 <?php
 
-use Contrib\Component\Data\Serializer\LtsvSerializer;
+use Contrib\Component\Serializer\LtsvSerializer;
 
 // serialize
 $serializer = new LtsvSerializer();

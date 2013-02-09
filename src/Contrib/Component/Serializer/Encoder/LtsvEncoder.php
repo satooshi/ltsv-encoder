@@ -30,7 +30,7 @@ class LtsvEncoder implements EncoderInterface, DecoderInterface
 
     public function __construct($options = null, LtsvEncode $encodingImpl = null, LtsvDecode $decodingImpl = null)
     {
-        if ($options = null) {
+        if ($options === null) {
             $options = array();
         }
 
