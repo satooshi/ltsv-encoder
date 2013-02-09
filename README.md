@@ -48,7 +48,7 @@ $ git clone git@github.com:satooshi/LTSV-Serializer.git
 
 # Usage
 
-## unserialize($str)
+## deserialize($str)
 
 ```php
 <?php
