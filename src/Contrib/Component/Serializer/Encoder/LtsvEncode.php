@@ -1,20 +1,19 @@
 <?php
 namespace Contrib\Component\Serializer\Encoder;
 
+use Symfony\Component\Serializer\Encoder\EncoderInterface;
+
 /**
- * LTSV encode.
+ * Encode LTSV data.
  *
  * @author Kitamura Satoshi <with.no.parachute@gmail.com>
  */
-class LtsvEncode extends Ltsv
+class LtsvEncode extends Ltsv implements EncoderInterface
 {
     // API
 
     /**
-     * Serialize data.
-     *
-     * @param array $data LTSV items.
-     * @return string Serialized LTSV line.
+     * {@inheritdoc}
      */
     public function encode($data, $format)
     {

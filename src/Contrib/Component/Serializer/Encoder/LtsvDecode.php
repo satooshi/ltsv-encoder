@@ -1,20 +1,19 @@
 <?php
 namespace Contrib\Component\Serializer\Encoder;
 
+use Symfony\Component\Serializer\Encoder\DecoderInterface;
+
 /**
- * LTSV Decode.
+ * Decode LTSV data.
  *
  * @author Kitamura Satoshi <with.no.parachute@gmail.com>
  */
-class LtsvDecode extends Ltsv
+class LtsvDecode extends Ltsv implements DecoderInterface
 {
     // API
 
     /**
-     * Decode LTSV string.
-     *
-     * @param string $data LTSV string.
-     * @return array Decoded LTSV items.
+     * {@inheritdoc}
      */
     public function decode($data, $format)
     {
