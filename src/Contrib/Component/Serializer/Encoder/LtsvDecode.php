@@ -52,18 +52,12 @@ class LtsvDecode extends Ltsv implements DecoderInterface
      */
     protected function decodeField($tsvField)
     {
-        if (false !== stripos($tsvField, static::DELIMITER)) {
-            $labelValue = explode(static::DELIMITER, $tsvField, 2);
-
-            if (count($labelValue) === 2) {
-                // "label:value"
-                return $labelValue;
-            }
-
-            // "label:" (no value)
-            return array($tsvField, '');
+        if (false === stripos($tsvField, static::DELIMITER)) {
+            throw new \RuntimeException(sprintf('Could not unserialize LTSV field(%s).', $tsvField));
         }
 
-        throw new \RuntimeException(sprintf('Could not unserialize LTSV field(%s).', $tsvField));
+        // "label:value"
+        // "label:" (no value)
+        return explode(static::DELIMITER, $tsvField, 2);
     }
 }
