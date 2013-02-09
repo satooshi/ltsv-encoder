@@ -85,7 +85,7 @@ abstract class Ltsv
     {
         $utf8 = mb_convert_encoding($label, 'UTF-8', 'auto');
 
-        if ($this->options['strict'] && !preg_match_all(static::STRICT_LABEL_PATTERN, $utf8)) {
+        if ($this->options['strict'] && !preg_match_all(static::STRICT_LABEL_PATTERN, $utf8, $matches)) {
             $message = sprintf('Could not serialize LTSV label:%s. It contains an illegal character.', $label);
 
             throw new \RuntimeException($message);
@@ -103,7 +103,7 @@ abstract class Ltsv
     {
         $utf8 = mb_convert_encoding($value, 'UTF-8', 'auto');
 
-        if ($this->options['strict'] && !preg_match_all(static::STRICT_VALUE_PATTERN, $utf8)) {
+        if ($this->options['strict'] && !preg_match_all(static::STRICT_VALUE_PATTERN, $utf8, $matches)) {
             $message = sprintf('Could not serialize LTSV value:%s. It contains an illegal character.', $value);
 
             throw new \RuntimeException($message);
