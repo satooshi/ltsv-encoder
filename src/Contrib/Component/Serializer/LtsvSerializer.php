@@ -3,7 +3,6 @@ namespace Contrib\Component\Serializer;
 
 use Contrib\Component\Serializer\Encoder\LtsvEncoder;
 
-
 /**
  * Serialize LTSV data.
  *
