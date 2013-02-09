@@ -27,7 +27,7 @@ class LtsvSerializer
      *
      * @var string
      */
-    const STRICT_LABEL_PATTERN = '/^[0-9A-Za-z_.-]+$/';
+    const STRICT_LABEL_PATTERN = '/^[0-9A-Za-z_\.\-]+$/';
 
     /**
      * Strict value pattern.
@@ -73,7 +73,7 @@ class LtsvSerializer
     {
         $fields = array();
 
-        foreach ($items as $label => $value) {
+        foreach ($data as $label => $value) {
             $fields[] = $this->serializeField($label, $value);
         }
 
