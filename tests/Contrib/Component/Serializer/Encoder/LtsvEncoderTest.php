@@ -12,9 +12,6 @@ class LtsvEncoderTest extends \PHPUnit_Framework_TestCase
 
     protected function setUp()
     {
-        //$encoder = new LtsvEncode();
-        //$decoder = new LtsvDecode();
-
         $this->object = new LtsvEncoder();
     }
 

@@ -65,7 +65,7 @@ use Contrib\Component\Serializer\Factory;
 
 // deserialize
 $str = "label1:value1\tlabel2:value2";
-$serializer = Factory::create();
+$serializer = Factory::createSerializer();
 $data = $serializer->decode($str, 'ltsv');
 
 ```
@@ -88,7 +88,7 @@ result in:
 use Contrib\Component\Serializer\Factory;
 
 // encode
-$serializer = Factory::create();
+$serializer = Factory::createSerializer();
 $str = $serializer->encode($data, 'ltsv');
 ```
 
@@ -108,7 +108,7 @@ use Contrib\Component\Serializer\Factory;
 
 // encode
 $data = new SerializableEntity(array('id' => 1, 'name' => 'hoge'));
-$serializer = Factory::create();
+$serializer = Factory::createSerializer();
 $str = $serializer->serialize($data, 'ltsv');
 ```
 
@@ -128,7 +128,7 @@ use Contrib\Component\Serializer\Factory;
 
 // deserialize
 $str = "id:1\tname:hoge";
-$serializer = Factory::create();
+$serializer = Factory::createSerializer();
 $data = $serializer->deserialize($str, 'SerializableEntity', 'ltsv');
 
 ```
@@ -153,7 +153,7 @@ You can pass options to constructor.
 
 use Contrib\Component\Serializer\Factory;
 
-$serializer = Factory::create(
+$serializer = Factory::createSerializer(
     // default options
     [
         'to_encoding' =>'UTF-8',
