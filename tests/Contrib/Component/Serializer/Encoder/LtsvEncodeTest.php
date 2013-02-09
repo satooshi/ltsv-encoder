@@ -15,6 +15,8 @@ class LtsvEncodeTest extends \PHPUnit_Framework_TestCase
         $this->object = new LtsvEncode();
     }
 
+    // encode()
+
     /**
      * @test
      */
@@ -97,6 +99,68 @@ class LtsvEncodeTest extends \PHPUnit_Framework_TestCase
 
         $this->object->encode($data, self::FORMAT);
     }
+
+    // encode() with invalid character
+
+    /**
+     * @test
+     */
+    public function encodeInvalidLabelUnlessStrictMode()
+    {
+        $data = array(
+            'あいうえお' => 'value1',
+        );
+
+        $expected = "あいうえお:value1";
+
+        $this->assertEquals($expected, $this->object->encode($data, self::FORMAT));
+    }
+
+    /**
+     * @test
+     */
+    public function encodeInvalidValueUnlessStrictMode()
+    {
+        $data = array(
+            'label1' => 'あいうえお',
+        );
+
+        $expected = "label1:あいうえお";
+
+        $this->assertEquals($expected, $this->object->encode($data, self::FORMAT));
+    }
+
+    /**
+     * @test
+     * @expectedException RuntimeException
+     */
+    public function throwRuntimeExceptionIfInvalidLabelOnStrictMode()
+    {
+        $this->object = new LtsvEncode(array('strict' => true));
+
+        $data = array(
+            'あいうえお' => 'value1',
+        );
+
+        $this->object->encode($data, self::FORMAT);
+    }
+
+    /**
+     * @test
+     * @expectedException RuntimeException
+     */
+    public function throwRuntimeExceptionIfInvalidValueOnStrictMode()
+    {
+        $this->object = new LtsvEncode(array('strict' => true));
+
+        $data = array(
+            'label1' => 'あいうえお',
+        );
+
+        $this->object->encode($data, self::FORMAT);
+    }
+
+    // supportsEncoding()
 
     /**
      * @test

@@ -28,6 +28,13 @@ class LtsvEncoder implements EncoderInterface, DecoderInterface
      */
     protected $decodingImpl;
 
+    /**
+     * Constructor.
+     *
+     * @param string $options
+     * @param LtsvEncode $encodingImpl
+     * @param LtsvDecode $decodingImpl
+     */
     public function __construct($options = null, LtsvEncode $encodingImpl = null, LtsvDecode $decodingImpl = null)
     {
         if ($options === null) {

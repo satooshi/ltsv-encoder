@@ -34,7 +34,7 @@ abstract class Ltsv
      *
      * @var string
      */
-    const STRICT_VALUE_PATTERN = '/^[\x01-\x08\x0B\x0C\x0E-\xFF]+$/';
+    const STRICT_VALUE_PATTERN = '/^[\\\x01-\\\x08\\\x0B\\\x0C\\\x0E-\\\xFF]+$/';
 
     /**
      * Serializer options.
@@ -55,9 +55,9 @@ abstract class Ltsv
     public function __construct(array $options = array())
     {
         $this->options = $options + array(
-                'to_encoding'   => 'UTF-8',
-                'from_encoding' => 'auto',
-                'strict'        => false,
+            'to_encoding'   => 'UTF-8',
+            'from_encoding' => 'auto',
+            'strict'        => false,
         );
     }
 
