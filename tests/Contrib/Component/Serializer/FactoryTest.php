@@ -69,7 +69,6 @@ class FactoryTest extends \PHPUnit_Framework_TestCase
     {
         $data = "id:1\tname:hoge";
         $expected = new SerializableEntity(array('id' => 1, 'name' => 'hoge'));
-        var_dump($expected);
         $actual = $this->object->deserialize($data, 'Contrib\Component\Serializer\SerializableEntity', self::FORMAT);
 
         $this->assertEquals($expected, $actual);
