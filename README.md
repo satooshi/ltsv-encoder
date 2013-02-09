@@ -37,7 +37,15 @@ $ composer update satooshi/ltsv-serializer
 
 Packagist page for this library is [https://packagist.org/packages/satooshi/ltsv-serializer](https://packagist.org/packages/satooshi/ltsv-serializer)
 
-Or you can use git clone
+autoloader is installed ./vendor/autoloader.php. If you use LTSV-Serializer in your php script, just add:
+
+```php
+require_once 'vendor/autoload.php';
+```
+
+If you use Symfony2, autoloader has to be detected automatically.
+
+Or you can use git clone command:
 
 ```sh
 # HTTP
