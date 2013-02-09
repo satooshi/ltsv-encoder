@@ -1,8 +1,8 @@
 {
-    "name": "satooshi/ltsv-serializer",
-    "description": "LTSV serializer",
+    "name": "satooshi/ltsv-encoder",
+    "description": "LTSV encoder based on Symfony Serializer component",
     "keywords": ["file"],
-    "homepage": "https://github.com/satooshi/LTSV-Serializer",
+    "homepage": "https://github.com/satooshi/ltsv-encoder",
     "type": "library",
     "license": "MIT",
     "minimum-stability": "dev",

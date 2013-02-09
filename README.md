@@ -1,14 +1,14 @@
-LTSV
+LTSV encoder
 ====
 
-LTSV encoder implementation in PHP based on Symfony Serializer component.
+LTSV encoder implementation in PHP based on [Symfony Serializer component](http://symfony.com/doc/current/components/serializer.html).
 
 [Labeled Tab-separated Values](http://ltsv.org/)
 
 
 # Installation
 
-To install LTSV-Serializer with Composer just add the following to your composer.json file:
+To install ltsv-encoder with Composer just add the following to your composer.json file:
 
 ```js
 // composer.json
@@ -16,7 +16,7 @@ To install LTSV-Serializer with Composer just add the following to your composer
     // ...
     require: {
         // ...
-        "satooshi/ltsv-serializer": "dev-master"
+        "satooshi/ltsv-encoder": "dev-master"
     }
 }
 ```
@@ -27,17 +27,17 @@ Then, you can install the new dependencies by running Composer’s update comman
 # install
 $ php composer.phar install
 # update
-$ php composer.phar update satooshi/ltsv-serializer
+$ php composer.phar update satooshi/ltsv-encoder
 
 # or you can simply execute composer command if you set composer command to
 # your PATH environment variable
 $ composer install
-$ composer update satooshi/ltsv-serializer
+$ composer update satooshi/ltsv-encoder
 ```
 
-Packagist page for this library is [https://packagist.org/packages/satooshi/ltsv-serializer](https://packagist.org/packages/satooshi/ltsv-serializer)
+Packagist page for this component is [https://packagist.org/packages/satooshi/ltsv-encoder](https://packagist.org/packages/satooshi/ltsv-encoder)
 
-autoloader is installed ./vendor/autoloader.php. If you use LTSV-Serializer in your php script, just add:
+autoloader is installed ./vendor/autoloader.php. If you use LTSV encoder in your php script, just add:
 
 ```php
 require_once 'vendor/autoload.php';
@@ -49,9 +49,9 @@ Or you can use git clone command:
 
 ```sh
 # HTTP
-$ git clone https://github.com/satooshi/LTSV-Serializer.git
+$ git clone https://github.com/satooshi/ltsv-encoder.git
 # SSH
-$ git clone git@github.com:satooshi/LTSV-Serializer.git
+$ git clone git@github.com:satooshi/ltsv-encoder.git
 ```
 
 # Usage
