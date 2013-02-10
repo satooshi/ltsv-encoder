@@ -34,6 +34,22 @@ class LtsvDecodeTest extends \PHPUnit_Framework_TestCase
     /**
      * @test
      */
+    public function decodeLtsvFieldOnStrict()
+    {
+        $this->object = new LtsvDecode(array('strict' => true));
+
+        $data = "label1:value1";
+
+        $expected = array(
+            'label1' => 'value1',
+        );
+
+        $this->assertEquals($expected, $this->object->decode($data, self::FORMAT));
+    }
+
+    /**
+     * @test
+     */
     public function decodeLtsvFields()
     {
         $data = "label1:value1\tlabel2:value2";

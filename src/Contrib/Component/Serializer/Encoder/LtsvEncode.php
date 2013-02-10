@@ -48,7 +48,9 @@ class LtsvEncode extends Ltsv implements EncoderInterface
     {
         $convertedLabel = $this->convertEncoding($label);
 
-        $this->assertLabel($convertedLabel);
+        if ($this->options['strict']) {
+            $this->assertLabel($convertedLabel);
+        }
 
         if ($value === null) {
             $value = '';
@@ -61,7 +63,9 @@ class LtsvEncode extends Ltsv implements EncoderInterface
         if (is_scalar($value)) {
             $convertedValue = $this->convertEncoding($value);
 
-            $this->assertValue($convertedValue);
+            if ($this->options['strict']) {
+                $this->assertValue($convertedValue);
+            }
 
             return sprintf('%s%s%s', $convertedLabel, static::DELIMITER, $convertedValue);
         }

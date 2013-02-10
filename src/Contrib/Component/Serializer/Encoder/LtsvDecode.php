@@ -17,17 +17,18 @@ class LtsvDecode extends Ltsv implements DecoderInterface
      */
     public function decode($data, $format)
     {
-        $line      = $this->convertEncoding($data);
-        $tsvFields = explode(static::SEPARATOR, trim($line));
-        $items     = array();
+        $line  = $this->convertEncoding($data);
+        $items = array();
 
-        foreach ($tsvFields as $tsvField) {
-            list($label, $value) = $this->decodeField($tsvField);
+        foreach (explode(static::SEPARATOR, $line) as $tsvField) {
+            $field = $this->decodeField($tsvField);
 
-            $this->assertLabel($label);
-            $this->assertValue($value);
+            if ($this->options['strict']) {
+                $this->assertLabel($field[0]);
+                $this->assertValue($field[1]);
+            }
 
-            $items[$label] = $value;
+            $items[$field[0]] = $field[1];
         }
 
         return $items;

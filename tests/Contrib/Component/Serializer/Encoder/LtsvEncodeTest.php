@@ -34,6 +34,22 @@ class LtsvEncodeTest extends \PHPUnit_Framework_TestCase
     /**
      * @test
      */
+    public function encodeLtsvItemOnString()
+    {
+        $this->object = new LtsvEncode(array('strict' => true));
+
+        $data = array(
+            'label1' => 'value1',
+        );
+
+        $expected = "label1:value1";
+
+        $this->assertEquals($expected, $this->object->encode($data, self::FORMAT));
+    }
+
+    /**
+     * @test
+     */
     public function encodeLtsvItems()
     {
         $data = array(
