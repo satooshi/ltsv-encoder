@@ -9,6 +9,6 @@ before_script:
     - php composer.phar install --dev
 
 script: 
-    - phpunit -c phpunit.xml
-    - cat build/logs/testdox.txt
+    - phpunit -c travis.phpunit.xml
+    - php travis/junit.php
 
