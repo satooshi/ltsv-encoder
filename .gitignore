@@ -1,6 +1,6 @@
 .buildpath
 .project
 .settings/
-build
-vendor
+build/
+vendor/
 composer.lock
