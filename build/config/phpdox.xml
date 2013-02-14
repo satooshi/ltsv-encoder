@@ -1,5 +1,5 @@
 <phpdox xmlns="http://phpdox.de/config">
-    <project name="FileClient" source="src" workdir="build/phpdox">
+    <project name="LTSV encoder" source="src" workdir="build/phpdox">
         <collector publiconly="false">
             <include mask="*.php" />
             <exclude mask="*.html.php" />
