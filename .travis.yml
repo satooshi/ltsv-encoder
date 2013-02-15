@@ -9,7 +9,7 @@ before_script:
     - php composer.phar install --dev
 
 script: 
-    - phpunit -c travis.phpunit.xml --testdox
+    - php vendor/bin/phpunit -c travis.phpunit.xml --testdox
 
 after_script:
     - curl -s https://gist.github.com/satooshi/4750401/raw > travis/ColorCLI.php
