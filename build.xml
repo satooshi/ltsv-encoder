@@ -3,7 +3,7 @@
 <project name="LTSV encoder" default="build" basedir=".">
     <target name="build-ci" depends="prepare,lint,phpdox,phploc,phpcb,phpcs-ci,phpmd-ci,phpcpd,phpunit,pdepend"/>
 
-    <target name="build" depends="prepare,lint,phpdox,phpcs,phpmd,phpcpd,phpunit,pdepend,phpunit-time"/>
+    <target name="build" depends="prepare,lint,phpdox,phpcs,phpmd-ci,pmd-cli,phpcpd,phpunit,pdepend,phpunit-time"/>
 
     <target name="test" depends="prepare,lint,phpunit,pdepend"/>
 
@@ -137,6 +137,12 @@
     <target name="phpunit-time" description="Show elapsed time of PHPUnit tests">
         <exec executable="${phphome}/bin/php">
             <arg path="${basedir}/travis/junit.php"/>
+        </exec>
+    </target>
+
+    <target name="pmd-cli" description="Show violations by PHPMD">
+        <exec executable="${phphome}/bin/php">
+            <arg path="${basedir}/travis/pmd.php"/>
         </exec>
     </target>
 </project>
