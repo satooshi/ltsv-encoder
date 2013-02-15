@@ -80,6 +80,7 @@ abstract class Ltsv
      * @param string $label
      * @return void
      * @throws \RuntimeException
+     * @SuppressWarnings(PHPMD.UnusedLocalVariable)
      */
     protected function assertLabel($label)
     {
@@ -98,6 +99,7 @@ abstract class Ltsv
      * @param string $value
      * @return void
      * @throws \RuntimeException
+     * @SuppressWarnings(PHPMD.UnusedLocalVariable)
      */
     protected function assertValue($value)
     {
