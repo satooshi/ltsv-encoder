@@ -3,7 +3,7 @@
 <project name="LTSV encoder" default="build" basedir=".">
     <target name="build-ci" depends="prepare,lint,phpdox,phploc,phpcb,phpcs-ci,phpmd-ci,phpcpd,phpunit,pdepend"/>
 
-    <target name="build" depends="prepare,lint,phpdox,phpcs,phpmd-ci,pmd-cli,phpcpd,phpunit,pdepend,phpunit-time"/>
+    <target name="build" depends="prepare,lint,phpdox,phpcs-ci,checkstyle-cli,phpmd-ci,pmd-cli,phpcpd,phpunit,pdepend,junit-cli"/>
 
     <target name="test" depends="prepare,lint,phpunit,pdepend"/>
 
@@ -74,7 +74,7 @@
     </target>
 
     <target name="phpcs" description="Find coding standard violations using PHP_CodeSniffer and print human readable output. Intended for usage on the command line before committing.">
-        <exec executable="${phphome}/bin/phpcs">
+        <exec executable="${basedir}/vendor/bin/phpcs">
             <arg value="--standard=${basedir}/build/config/phpcs.xml"/>
             <arg value="--ignore=*.html.php,*.config.php,*.twig.php"/>
             <arg path="${basedir}/src"/>
@@ -82,7 +82,7 @@
     </target>
 
     <target name="phpcs-ci" description="Find coding standard violations using PHP_CodeSniffer creating a log file for the continuous integration server">
-        <exec executable="${phphome}/bin/phpcs">
+        <exec executable="${basedir}/vendor/bin/phpcs">
             <arg value="--report=checkstyle"/>
             <arg value="--report-file=${basedir}/build/logs/checkstyle.xml"/>
             <arg value="--standard=${basedir}/build/config/phpcs.xml"/>
@@ -92,7 +92,7 @@
     </target>
 
     <target name="phpmd" description="Perform project mess detection using PHPMD and print human readable output. Intended for usage on the command line before committing.">
-        <exec executable="${phphome}/bin/phpmd">
+        <exec executable="${basedir}/vendor/bin/phpmd">
             <arg path="${basedir}/src"/>
             <arg value="text"/>
             <arg value="${basedir}/build/config/phpmd.xml"/>
@@ -100,7 +100,7 @@
     </target>
 
     <target name="phpmd-ci" description="Perform project mess detection using PHPMD creating a log file for the continuous integration server">
-        <exec executable="${phphome}/bin/phpmd">
+        <exec executable="${basedir}/vendor/bin/phpmd">
             <arg path="${basedir}/src"/>
             <arg value="xml"/>
             <arg value="${basedir}/build/config/phpmd.xml"/>
@@ -125,7 +125,7 @@
     </target>
 
     <target name="pdepend" description="Calculate software metrics using PHP_Depend">
-        <exec executable="${phphome}/bin/pdepend">
+        <exec executable="${basedir}/vendor/bin/pdepend">
             <arg value="--coverage-report=${basedir}/build/logs/clover.xml"/>
             <arg value="--jdepend-xml=${basedir}/build/logs/jdepend.xml"/>
             <arg value="--jdepend-chart=${basedir}/build/pdepend/dependencies.svg"/>
@@ -134,7 +134,7 @@
         </exec>
     </target>
 
-    <target name="phpunit-time" description="Show elapsed time of PHPUnit tests">
+    <target name="junit-cli" description="Show elapsed time of PHPUnit tests">
         <exec executable="${phphome}/bin/php">
             <arg path="${basedir}/travis/junit.php"/>
         </exec>
@@ -143,6 +143,12 @@
     <target name="pmd-cli" description="Show violations by PHPMD">
         <exec executable="${phphome}/bin/php">
             <arg path="${basedir}/travis/pmd.php"/>
+        </exec>
+    </target>
+
+    <target name="checkstyle-cli" description="Show violations by PHP_CodeSniffer">
+        <exec executable="${phphome}/bin/php">
+            <arg path="${basedir}/travis/checkstyle.php"/>
         </exec>
     </target>
 </project>
