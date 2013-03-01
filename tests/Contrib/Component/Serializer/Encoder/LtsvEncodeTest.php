@@ -36,15 +36,14 @@ class LtsvEncodeTest extends \PHPUnit_Framework_TestCase
      */
     public function encodeLtsvItemOnString()
     {
-        $this->object = new LtsvEncode(array('strict' => true));
-
         $data = array(
             'label1' => 'value1',
         );
 
         $expected = "label1:value1";
+        $actual = $this->object->encode($data, self::FORMAT, array('strict' => true));
 
-        $this->assertEquals($expected, $this->object->encode($data, self::FORMAT));
+        $this->assertEquals($expected, $actual);
     }
 
     /**
@@ -79,7 +78,7 @@ class LtsvEncodeTest extends \PHPUnit_Framework_TestCase
     /**
      * @test
      */
-    public function encodeSerializableValue()
+    public function encodeSerializableObjectValue()
     {
         $data = array(
             'label1' => new SerializableObject,
@@ -152,13 +151,11 @@ class LtsvEncodeTest extends \PHPUnit_Framework_TestCase
      */
     public function throwRuntimeExceptionIfInvalidLabelOnStrictMode()
     {
-        $this->object = new LtsvEncode(array('strict' => true));
-
         $data = array(
             'あいうえお' => 'value1',
         );
 
-        $this->object->encode($data, self::FORMAT);
+        $this->object->encode($data, self::FORMAT, array('strict' => true));
     }
 
     /**
@@ -167,13 +164,60 @@ class LtsvEncodeTest extends \PHPUnit_Framework_TestCase
      */
     public function throwRuntimeExceptionIfInvalidValueOnStrictMode()
     {
-        $this->object = new LtsvEncode(array('strict' => true));
-
         $data = array(
             'label1' => 'あいうえお',
         );
 
-        $this->object->encode($data, self::FORMAT);
+        $this->object->encode($data, self::FORMAT, array('strict' => true));
+    }
+
+    // store_context
+
+    /**
+     * @test
+     */
+    public function encodeInvalidLtsvFieldWithStoredContext()
+    {
+        $data = array(
+            'label1' => 'あいうえお',
+        );
+        $expected = "label1:あいうえお";
+
+        $actual = $this->object->encode($data, self::FORMAT, array('strict' => false, 'store_context' => true));
+        $this->assertEquals($expected, $actual);
+
+        $actual = $this->object->encode($data, self::FORMAT, array('strict' => true, 'store_context' => true));
+        $this->assertEquals($expected, $actual);
+
+        return $this->object;
+    }
+
+    /**
+     * @test
+     * @expectedException RuntimeException
+     * @depends encodeInvalidLtsvFieldWithStoredContext
+     */
+    public function throwRuntimeExceptionOnEncodeInvalidLtsvFieldWithoutStoredContext($object)
+    {
+        $data = array(
+            'label1' => 'あいうえお',
+        );
+
+        $object->encode($data, self::FORMAT, array('strict' => true));
+    }
+
+    /**
+     * @test
+     * @expectedException RuntimeException
+     * @depends encodeInvalidLtsvFieldWithStoredContext
+     */
+    public function throwRuntimeExceptionOnEncodeInvalidLtsvFieldWithStoredContextFalse($object)
+    {
+        $data = array(
+            'label1' => 'あいうえお',
+        );
+
+        $object->encode($data, self::FORMAT, array('strict' => true, 'store_context' => false));
     }
 
     // supportsEncoding()

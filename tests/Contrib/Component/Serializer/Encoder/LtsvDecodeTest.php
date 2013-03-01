@@ -36,15 +36,14 @@ class LtsvDecodeTest extends \PHPUnit_Framework_TestCase
      */
     public function decodeLtsvFieldOnStrict()
     {
-        $this->object = new LtsvDecode(array('strict' => true));
-
         $data = "label1:value1";
 
         $expected = array(
             'label1' => 'value1',
         );
+        $actual = $this->object->decode($data, self::FORMAT, array('strict' => true));
 
-        $this->assertEquals($expected, $this->object->decode($data, self::FORMAT));
+        $this->assertEquals($expected, $actual);
     }
 
     /**
@@ -136,10 +135,8 @@ class LtsvDecodeTest extends \PHPUnit_Framework_TestCase
      */
     public function throwRuntimeExceptionIfInvalidLabelOnStrictMode()
     {
-        $this->object = new LtsvDecode(array('strict' => true));
-
         $data = "あいうえお:value1";
-        $this->object->decode($data, self::FORMAT);
+        $this->object->decode($data, self::FORMAT, array('strict' => true));
     }
 
     /**
@@ -148,10 +145,53 @@ class LtsvDecodeTest extends \PHPUnit_Framework_TestCase
      */
     public function throwRuntimeExceptionIfInvalidValueOnStrictMode()
     {
-        $this->object = new LtsvDecode(array('strict' => true));
-
         $data = "label:あいうえお";
-        $this->object->decode($data, self::FORMAT);
+        $this->object->decode($data, self::FORMAT, array('strict' => true));
+    }
+
+    // store_context
+
+    /**
+     * @test
+     */
+    public function decodeInvalidLtsvFieldWithStoredContext()
+    {
+        $data = "label:あいうえお";
+        $expected = array(
+            'label' => 'あいうえお',
+        );
+
+        $actual = $this->object->decode($data, self::FORMAT, array('strict' => false, 'store_context' => true));
+        $this->assertEquals($expected, $actual);
+
+        $actual = $this->object->decode($data, self::FORMAT, array('strict' => true, 'store_context' => true));
+        $this->assertEquals($expected, $actual);
+
+        return $this->object;
+    }
+
+    /**
+     * @test
+     * @expectedException RuntimeException
+     * @depends decodeInvalidLtsvFieldWithStoredContext
+     */
+    public function throwRuntimeExceptionOnDecodeInvalidLtsvFieldWithoutStoredContext($object)
+    {
+        $data = "label:あいうえお";
+
+        $object->decode($data, self::FORMAT, array('strict' => true));
+    }
+
+    /**
+     * @test
+     * @expectedException RuntimeException
+     * @depends decodeInvalidLtsvFieldWithStoredContext
+     */
+    public function throwRuntimeExceptionOnDecodeInvalidLtsvFieldWithStoredContextFalse($object)
+    {
+        $data = "label:あいうえお";
+
+        $object->decode($data, self::FORMAT, array('strict' => true, 'store_context' => false));
     }
 
     // supportsDecoding()

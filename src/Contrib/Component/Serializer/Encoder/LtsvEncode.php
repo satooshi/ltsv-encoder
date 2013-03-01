@@ -15,12 +15,22 @@ class LtsvEncode extends Ltsv implements EncoderInterface
     /**
      * {@inheritdoc}
      */
-    public function encode($data, $format)
+    public function encode($data, $format, array $context = array())
     {
+        if (isset($context['store_context']) && $context['store_context']) {
+            if (!isset($this->context)) {
+                $this->context = $this->resolveContext($context);
+            }
+
+            $context = $this->context;
+        } else {
+            $context = $this->resolveContext($context);
+        }
+
         $fields = array();
 
         foreach ($data as $label => $value) {
-            $fields[] = $this->encodeField($label, $value);
+            $fields[] = $this->encodeField($label, $value, $context);
         }
 
         return implode(static::SEPARATOR, $fields);
@@ -44,11 +54,12 @@ class LtsvEncode extends Ltsv implements EncoderInterface
      * @return string Serialized LTSV field.
      * @throws \RuntimeException
      */
-    protected function encodeField($label, $value)
+    protected function encodeField($label, $value, array $context)
     {
-        $convertedLabel = $this->convertEncoding($label);
+        $convertedLabel = $this->convertEncoding($label, $context);
+        $strict         = $context['strict'];
 
-        if ($this->options['strict']) {
+        if ($strict) {
             $this->assertLabel($convertedLabel);
         }
 
@@ -61,9 +72,9 @@ class LtsvEncode extends Ltsv implements EncoderInterface
         }
 
         if (is_scalar($value)) {
-            $convertedValue = $this->convertEncoding($value);
+            $convertedValue = $this->convertEncoding($value, $context);
 
-            if ($this->options['strict']) {
+            if ($strict) {
                 $this->assertValue($convertedValue);
             }
 

@@ -15,15 +15,26 @@ class LtsvDecode extends Ltsv implements DecoderInterface
     /**
      * {@inheritdoc}
      */
-    public function decode($data, $format)
+    public function decode($data, $format, array $context = array())
     {
-        $line  = $this->convertEncoding($data);
-        $items = array();
+        if (isset($context['store_context']) && $context['store_context']) {
+            if (!isset($this->context)) {
+                $this->context = $this->resolveContext($context);
+            }
+
+            $context = $this->context;
+        } else {
+            $context = $this->resolveContext($context);
+        }
+
+        $strict  = $context['strict'];
+        $line    = $this->convertEncoding($data, $context);
+        $items   = array();
 
         foreach (explode(static::SEPARATOR, $line) as $tsvField) {
             $field = $this->decodeField($tsvField);
 
-            if ($this->options['strict']) {
+            if ($strict) {
                 $this->assertLabel($field[0]);
                 $this->assertValue($field[1]);
             }

@@ -17,12 +17,11 @@ class Factory
     /**
      * Create LTSV serializer.
      *
-     * @param array $options LtsvEncoder options.
      * @return \Symfony\Component\Serializer\Serializer
      */
-    public static function createSerializer($options = array())
+    public static function createSerializer()
     {
-        $encoders = array(new XmlEncoder(), new JsonEncoder(), new LtsvEncoder($options));
+        $encoders = array(new XmlEncoder(), new JsonEncoder(), new LtsvEncoder());
         $normalizers = array(new GetSetMethodNormalizer());
 
         return new Serializer($normalizers, $encoders);

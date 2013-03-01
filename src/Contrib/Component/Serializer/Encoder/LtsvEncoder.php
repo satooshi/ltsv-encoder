@@ -35,14 +35,10 @@ class LtsvEncoder implements EncoderInterface, DecoderInterface
      * @param LtsvEncode $encodingImpl
      * @param LtsvDecode $decodingImpl
      */
-    public function __construct($options = null, LtsvEncode $encodingImpl = null, LtsvDecode $decodingImpl = null)
+    public function __construct(LtsvEncode $encodingImpl = null, LtsvDecode $decodingImpl = null)
     {
-        if ($options === null) {
-            $options = array();
-        }
-
-        $this->encodingImpl = null === $encodingImpl ? new LtsvEncode($options) : $encodingImpl;
-        $this->decodingImpl = null === $decodingImpl ? new LtsvDecode($options) : $decodingImpl;
+        $this->encodingImpl = null === $encodingImpl ? new LtsvEncode() : $encodingImpl;
+        $this->decodingImpl = null === $decodingImpl ? new LtsvDecode() : $decodingImpl;
     }
 
     // API
@@ -50,17 +46,17 @@ class LtsvEncoder implements EncoderInterface, DecoderInterface
     /**
      * {@inheritdoc}
      */
-    public function encode($data, $format)
+    public function encode($data, $format, array $context = array())
     {
-        return $this->encodingImpl->encode($data, self::FORMAT);
+        return $this->encodingImpl->encode($data, self::FORMAT, $context);
     }
 
     /**
      * {@inheritdoc}
      */
-    public function decode($data, $format)
+    public function decode($data, $format, array $context = array())
     {
-        return $this->decodingImpl->decode($data, self::FORMAT);
+        return $this->decodingImpl->decode($data, self::FORMAT, $context);
     }
 
     /**

@@ -37,41 +37,43 @@ abstract class Ltsv
     const STRICT_VALUE_PATTERN = '/^[\x01-\x08\x0B\x0C\x0E-\xFF]+$/u';
 
     /**
-     * Serializer options.
-     *
-     * * to_encoding: UTF-8
-     * * from_encoding: auto
-     * * strict: false
+     * Serializer context options.
      *
      * @var array
      */
-    protected $options;
-
-    /**
-     * Constructor.
-     *
-     * @param array $options Serializer options.
-     */
-    public function __construct(array $options = array())
-    {
-        $this->options = $options + array(
-            'to_encoding'   => 'UTF-8',
-            'from_encoding' => 'auto',
-            'strict'        => false,
-        );
-    }
+    protected $context;
 
     // internal method
 
     /**
+     * Merge the default options of the Ltsv Encode/Decode with the passed context.
+     *
+     * @param array $context
+     * @return array
+     */
+    protected function resolveContext(array $context)
+    {
+        return array_merge(
+            array(
+                'to_encoding'   => 'UTF-8',
+                'from_encoding' => 'auto',
+                'strict'        => false,
+                'store_context' => false,
+            ),
+            $context
+        );
+    }
+
+    /**
      * Convert encoding.
      *
-     * @param string $str Converting string.
+     * @param string $str     Converting string.
+     * @param array  $context Serializer context options.
      * @return string Converted string.
      */
-    protected function convertEncoding($str)
+    protected function convertEncoding($str, array $context)
     {
-        return mb_convert_encoding($str, $this->options['to_encoding'], $this->options['from_encoding']);
+        return mb_convert_encoding($str, $context['to_encoding'], $context['from_encoding']);
     }
 
     /**

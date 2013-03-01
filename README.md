@@ -57,7 +57,7 @@ $ git clone git@github.com:satooshi/ltsv-encoder.git
 
 # Usage
 
-## decode($data, $format)
+## decode($data, $format, array $context = array())
 
 ```php
 <?php
@@ -81,7 +81,7 @@ result in:
 ]
 ```
 
-## encode($data, $format)
+## encode($data, $format, array $context = array())
 
 ```php
 <?php
@@ -100,7 +100,7 @@ result in:
 "label1:value1\tlabel2:value2"
 ```
 
-## serialize($data, $format)
+## serialize($data, $format, array $context = array())
 
 ```php
 <?php
@@ -120,7 +120,7 @@ result in:
 "id:1\tname:hoge"
 ```
 
-## deserialize($data, $type, $format)
+## deserialize($data, $type, $format, array $context = array())
 
 ```php
 <?php
@@ -147,19 +147,40 @@ class SerializableEntity {
 ```
 
 ## options
-You can pass options to constructor.
+You can pass the serializer context options to the last argument in each method. This context was introduced in Symfony 2.2 Serializer component.
 
 ```php
 <?php
 
 use Contrib\Component\Serializer\Factory;
 
-$serializer = Factory::createSerializer(
-    // default options
-    [
-        'to_encoding' =>'UTF-8',
-        'from_encodeing' => 'auto',
-        'strict' => false,
-    ]
-);
+$format = 'ltsv';
+
+// you can change these default options
+$context =
+[
+    'to_encoding' =>'UTF-8',
+    'from_encodeing' => 'auto',
+    'strict' => false,
+    'store_context' => false,
+];
+
+$serializer = Factory::createSerializer();
+$serializer->decode($data, $format, $context);
+$serializer->encode($data, $format, $context);
+$serializer->serialize($data, $format, $context);
+$serializer->deserialize($data, $type, $format, $context);
+
+// change options
+$context =
+[
+    'strict' => true,
+];
+
+// recreate serializer object
+$serializer = Factory::createSerializer();
+$serializer->decode($data, $format, $context);
+$serializer->encode($data, $format, $context);
+$serializer->serialize($data, $format, $context);
+$serializer->deserialize($data, $type, $format, $context);
 ```
